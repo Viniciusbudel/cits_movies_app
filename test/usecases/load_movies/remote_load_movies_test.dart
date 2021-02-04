@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cits_movie_app/domain/helpers/helpers.dart';
 import 'package:faker/faker.dart';
 import 'package:meta/meta.dart';
 import 'package:mockito/mockito.dart';
@@ -20,11 +21,15 @@ class RemoteLoadMovies {
   });
 
   Future<List<MoviesEntity>> load() async {
-    final httpResponse = await httpClient.request(url: url, method: 'get');
+    try {
+      final httpResponse = await httpClient.request(url: url, method: 'get');
 
-    return httpResponse
-        .map((json) => RemoteMoviesModel.fromJson(json).toEntity())
-        .toList();
+      return httpResponse
+          .map((json) => RemoteMoviesModel.fromJson(json).toEntity())
+          .toList();
+    } on HttpError {
+      throw DomainError.unexpected;
+    }
   }
 }
 
@@ -63,6 +68,10 @@ void main() {
     mockRequest().thenAnswer((_) async => data);
   }
 
+  void mockHttpError(HttpError error) {
+    mockRequest().thenThrow(error);
+  }
+
   setUp(() {
     url = faker.internet.httpUrl();
     httpClient = HttpClientSpy();
@@ -78,7 +87,6 @@ void main() {
 
   test('Should return Movies on 200', () async {
     final movies = await sut.load();
-    print(movies.toString());
 
     expect(movies, [
       MoviesEntity(
@@ -98,5 +106,23 @@ void main() {
         releaseDate: DateTime.parse(list[1]['releaseDate']),
       ),
     ]);
+  });
+
+  test('Should throw UnexpectedError on 200 with invalid_data', () async {
+    mockHttpData([
+      {'invalid_data': 'invalid_value'}
+    ]);
+
+    final future = sut.load();
+
+    expect(future, throwsA(DomainError.unexpected));
+  });
+
+  test('Should throw UnexpectedError if HttpClient return 404', () async {
+    mockHttpError(HttpError.notFound);
+
+    final future = sut.load();
+
+    expect(future, throwsA(DomainError.unexpected));
   });
 }
