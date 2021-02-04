@@ -23,11 +23,17 @@ class RemoteLoadMovies {
 class HttpClientSpy extends Mock implements HttpClient {}
 
 void main() {
-  test('Should call HttpClient with correct values', () async {
-    final url = faker.internet.httpUrl();
-    final httpClient = HttpClientSpy();
-    final sut = RemoteLoadMovies(url: url, httpClient: httpClient);
+  String url;
+  HttpClientSpy httpClient;
+  RemoteLoadMovies sut;
 
+  setUp((){
+     url = faker.internet.httpUrl();
+     httpClient = HttpClientSpy();
+     sut = RemoteLoadMovies(url: url, httpClient: httpClient);
+  });
+
+  test('Should call HttpClient with correct values', () async {
     await sut.load();
 
     verify(httpClient.request(url: url, method: 'get'));
