@@ -24,6 +24,11 @@ dependencies:
   flutter:
     sdk: flutter
   http:
+  provider:
+  equatable:
+  get: 3.4.2
+  flutter_secure_storage:
+  intl:
 
 
   # The following adds the Cupertino Icons font to your application.
