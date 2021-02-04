@@ -1,41 +1,15 @@
 import 'dart:io';
 
+import 'package:cits_movie_app/data/usecases/load_movies/remote_load_movies.dart';
 import 'package:cits_movie_app/domain/helpers/helpers.dart';
 import 'package:faker/faker.dart';
-import 'package:meta/meta.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import 'package:cits_movie_app/domain/entities/entities.dart';
-
 import 'package:cits_movie_app/data/http/http.dart';
-import 'package:cits_movie_app/data/models/models.dart';
 
-class RemoteLoadMovies {
-  final String url;
-  final HttpClient<List<Map>> httpClient;
-
-  RemoteLoadMovies({
-    @required this.url,
-    @required this.httpClient,
-  });
-
-  Future<List<MoviesEntity>> load() async {
-    try {
-      final httpResponse = await httpClient.request(url: url, method: 'get');
-
-      return httpResponse
-          .map((json) => RemoteMoviesModel.fromJson(json).toEntity())
-          .toList();
-    } on HttpError catch (error) {
-      throw error == HttpError.forbidden
-          ? DomainError.accessDenied
-          : DomainError.unexpected;
-    }
-  }
-}
-
-class HttpClientSpy extends Mock implements HttpClient<List<Map>> {}
+class HttpClientSpy extends Mock implements HttpClient {}
 
 void main() {
   String url;
