@@ -21,7 +21,7 @@ void main() {
         {
           'id': faker.randomGenerator.integer(100000000),
           'overview': faker.randomGenerator.string(2000),
-          'popularity': faker.randomGenerator.decimal(),
+          'vote_average': faker.randomGenerator.decimal(),
           'posterPath': faker.randomGenerator.string(244),
           'releaseDate': faker.date.dateTime().toIso8601String(),
           'title': faker.randomGenerator.string(244)
@@ -29,7 +29,7 @@ void main() {
         {
           'id': faker.randomGenerator.integer(100000000),
           'overview': faker.randomGenerator.string(2000),
-          'popularity': faker.randomGenerator.decimal(),
+          'vote_average': faker.randomGenerator.decimal(),
           'posterPath': faker.randomGenerator.string(244),
           'releaseDate': faker.date.dateTime().toIso8601String(),
           'title': faker.randomGenerator.string(244)
@@ -69,7 +69,7 @@ void main() {
         id: list[0]['id'],
         title: list[0]['title'],
         overview: list[0]['overview'],
-        popularity: list[0]['popularity'],
+        voteAverage: list[0]['vote_average'],
         posterPath: list[0]['posterPath'],
         releaseDate: DateTime.parse(list[0]['releaseDate']),
       ),
@@ -77,7 +77,7 @@ void main() {
         id: list[1]['id'],
         title: list[1]['title'],
         overview: list[1]['overview'],
-        popularity: list[1]['popularity'],
+        voteAverage: list[1]['vote_average'],
         posterPath: list[1]['posterPath'],
         releaseDate: DateTime.parse(list[1]['releaseDate']),
       ),

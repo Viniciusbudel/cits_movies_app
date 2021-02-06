@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 class MoviesEntity extends Equatable {
   final int id;
   final String overview;
-  final double popularity;
+  final double voteAverage;
   final String posterPath;
   final DateTime releaseDate;
   final String title;
@@ -12,7 +12,7 @@ class MoviesEntity extends Equatable {
   List get props => [
     'id',
     'overview',
-    'popularity',
+    'voteAverage',
     'posterPath',
     'releaseDate',
     'title',
@@ -21,7 +21,7 @@ class MoviesEntity extends Equatable {
   MoviesEntity(
       {@required this.id,
       @required this.overview,
-      @required this.popularity,
+      @required this.voteAverage,
       @required this.posterPath,
       @required this.releaseDate,
       @required this.title});

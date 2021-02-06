@@ -8,7 +8,7 @@ import 'package:cits_movie_app/domain/entities/entities.dart';
 class RemoteMoviesModel {
   final int id;
   final String overview;
-  final double popularity;
+  final double voteAverage;
   final String posterPath;
   final String releaseDate;
   final String title;
@@ -16,7 +16,7 @@ class RemoteMoviesModel {
   RemoteMoviesModel({
     @required this.id,
     @required this.overview,
-    @required this.popularity,
+    @required this.voteAverage,
     @required this.posterPath,
     @required this.releaseDate,
     @required this.title,
@@ -26,7 +26,7 @@ class RemoteMoviesModel {
     if (!json.keys.toSet().containsAll([
       'id',
       'overview',
-      'popularity',
+      'voteAverage',
       'posterPath',
       'releaseDate',
       'title'
@@ -37,7 +37,7 @@ class RemoteMoviesModel {
     return RemoteMoviesModel(
         id: json['id'],
         overview: json['overview'],
-        popularity: json['popularity'],
+        voteAverage: json['voteAverage'],
         posterPath: json['posterPath'],
         releaseDate: json['releaseDate'],
         title: json['title']);
@@ -46,7 +46,7 @@ class RemoteMoviesModel {
   MoviesEntity toEntity() => MoviesEntity(
         id: id,
         overview: overview,
-        popularity: popularity,
+        voteAverage: voteAverage,
         posterPath: posterPath,
         releaseDate: DateTime.parse(releaseDate),
         title: title,
