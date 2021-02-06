@@ -7,13 +7,13 @@ class UpcomingMoviesPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text('Filmes Novos'),
+        title: Text('Próximas Estréias'),
       ),
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 1,
-          mainAxisSpacing: 1,
+          crossAxisSpacing: 2,
+          mainAxisSpacing: 2,
           childAspectRatio: 0.5,
         ),
         itemBuilder: (context, index) => ItemCard(),

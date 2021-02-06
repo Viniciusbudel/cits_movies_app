@@ -20,14 +20,25 @@ class App extends StatelessWidget {
           primaryColorDark: primaryColorDark,
           primaryColorLight: primaryColorLigth,
           accentColor: colorAccent,
-          backgroundColor: Colors.black,
+          backgroundColor: primaryColorDark,
+          scaffoldBackgroundColor: primaryColorDark,
           textTheme: TextTheme(
-            headline1: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.w500, color: colorAccent),
-            subtitle1: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w400, color: colorAccent)
-          ),
-
+              headline1: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w500,
+                  color: colorAccent),
+              headline2: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: colorAccent),
+              subtitle1: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: colorAccent),
+              subtitle2: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w300,
+                  color: colorAccent)),
           inputDecorationTheme: InputDecorationTheme(
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: primaryColorLigth),

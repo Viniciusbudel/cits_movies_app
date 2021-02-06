@@ -1,6 +1,8 @@
+import 'package:cits_movie_app/ui/pages/movie_detail/movie_details_page.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../data/models/models.dart';
+import '../../../helpers/helpers.dart';
+
 
 class ItemCard extends StatelessWidget {
   // final RemoteMoviesModel moviesModel;
@@ -22,7 +24,7 @@ class ItemCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         child: GestureDetector(
-          //onTap: press,
+          onTap: () => push(context, MovieDetailPage()),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
