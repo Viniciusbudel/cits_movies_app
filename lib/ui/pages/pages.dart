@@ -1,0 +1,1 @@
+export 'upcoming_movies/upcoming_movies_page.dart';
