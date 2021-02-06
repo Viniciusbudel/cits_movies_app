@@ -12,7 +12,7 @@ Widget makeUpcomingMoviesPage() {
   final remoteLoadMovies =
       RemoteLoadMovies(url: url, httpClient: httpAdapter);
 
-  // final streamLoginPresenter = StreamLoginPresenter(
+  // final streamUpcomingMoviesPresenter = GetxS(
   //     authentication: remoteAuthetication, validation: validationComposite);
-  return UpcomingMoviesPage();
+  return UpcomingMoviesPage(null);
 }
