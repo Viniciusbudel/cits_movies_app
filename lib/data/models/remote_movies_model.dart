@@ -26,7 +26,7 @@ class RemoteMoviesModel {
     if (!json.keys.toSet().containsAll([
       'id',
       'overview',
-      'voteAverage',
+      'vote_average',
       'posterPath',
       'releaseDate',
       'title'
