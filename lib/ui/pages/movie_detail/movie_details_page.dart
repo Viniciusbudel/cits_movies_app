@@ -21,7 +21,7 @@ class MovieDetailPage extends StatelessWidget with LoadingManager{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Filmes Detalhes'),
+        title: Text('Detalhes do Filme'),
       ),
       body: Builder(
         builder: (context) {

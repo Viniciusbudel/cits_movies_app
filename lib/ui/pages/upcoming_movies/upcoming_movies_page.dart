@@ -21,7 +21,8 @@ class UpcomingMoviesPage extends StatefulWidget {
   _UpcomingMoviesPageState createState() => _UpcomingMoviesPageState();
 }
 
-class _UpcomingMoviesPageState extends State<UpcomingMoviesPage> with NavigationManager,LoadingManager{
+class _UpcomingMoviesPageState extends State<UpcomingMoviesPage>
+    with NavigationManager, LoadingManager {
   int page = 1;
 
   @override
@@ -32,7 +33,6 @@ class _UpcomingMoviesPageState extends State<UpcomingMoviesPage> with Navigation
         title: Text('Próximas Estréias'),
       ),
       body: Builder(builder: (context) {
-
         handleLoading(context, widget.presenter.isLoadingStream);
 
         widget.presenter.loadData(LoadMoviesParams(
@@ -55,7 +55,7 @@ class _UpcomingMoviesPageState extends State<UpcomingMoviesPage> with Navigation
               }
               if (snapshot.hasData) {
                 return Padding(
-                  padding:  EdgeInsets.only(bottom: 40),
+                  padding: EdgeInsets.only(bottom: 40),
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,

@@ -50,7 +50,7 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+                padding: EdgeInsets.only(top: 4,bottom: 8,left: 4),
                 child: Text(
                   moviesModel.releaseDate,
                   style: Theme.of(context).textTheme.subtitle2,
