@@ -1,15 +1,19 @@
-import 'package:cits_movie_app/data/http/http.dart';
-import 'package:cits_movie_app/data/models/models.dart';
-import 'package:cits_movie_app/domain/entities/entities.dart';
-import 'package:cits_movie_app/domain/helpers/helpers.dart';
-import 'package:cits_movie_app/domain/usecases/usecases.dart';
-import 'package:cits_movie_app/presentation/presenters/getx_movies_presenter.dart';
-import 'package:cits_movie_app/ui/helpers/errors/ui_error.dart';
 import 'package:faker/faker.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
+import 'package:cits_movie_app/domain/entities/entities.dart';
+import 'package:cits_movie_app/domain/helpers/helpers.dart';
+import 'package:cits_movie_app/domain/usecases/usecases.dart';
 
+import 'package:cits_movie_app/data/models/models.dart';
+
+import 'package:cits_movie_app/presentation/presenters/getx_movies_presenter.dart';
+
+import 'package:cits_movie_app/ui/helpers/errors/ui_error.dart';
 
 class LoadMoviesSpy extends Mock implements LoadMovies {}
 
@@ -18,6 +22,8 @@ void main() {
   GetxMoviesPresenter sut;
   List<MoviesEntity> movies;
   LoadMoviesParams params;
+
+
 
   mockValidData() => [
         MoviesEntity(
@@ -47,12 +53,11 @@ void main() {
   }
 
   setUp(() {
-    params = LoadMoviesParams(apiKey: '7c130c4d6b5a83e1a0223a8cbf26b27a');
 
+    params = LoadMoviesParams(apiKey: '7c130c4d6b5a83e1a0223a8cbf26b27a');
     loadMovies = LoadMoviesSpy();
     sut = GetxMoviesPresenter(loadMovies: loadMovies);
     mockLoadMovies(mockValidData());
-
   });
 
   test('Should call LoadMovies on loadData', () async {

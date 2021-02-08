@@ -1,6 +1,6 @@
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import '../../domain/helpers/helpers.dart';
 import '../../domain/usecases/usecases.dart';
@@ -29,15 +29,17 @@ class GetxMoviesPresenter extends GetxController
     try {
       _isLoading.value = true;
 
+
       final movies = await loadMovies.load(params: params);
       _movies.value = movies
           .map((movie) => RemoteMoviesModel(
+
               id: movie.id,
               overview: movie.overview,
               voteAverage: movie.voteAverage,
               posterPath: movie.posterPath,
               releaseDate:
-                  DateFormat('dd MMM yyyy', 'pt_Br').format(movie.releaseDate),
+                  DateFormat('dd MMM yyyy').format(movie.releaseDate),
               title: movie.title))
           .toList();
     } on DomainError {
