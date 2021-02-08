@@ -1,6 +1,9 @@
+import 'package:cits_movie_app/data/http/http.dart';
 import 'package:cits_movie_app/data/models/models.dart';
 import 'package:cits_movie_app/domain/entities/entities.dart';
+import 'package:cits_movie_app/domain/helpers/helpers.dart';
 import 'package:cits_movie_app/domain/usecases/usecases.dart';
+import 'package:cits_movie_app/ui/helpers/errors/ui_error.dart';
 import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
@@ -20,18 +23,24 @@ class GetxMoviesPresenter {
   GetxMoviesPresenter({@required this.loadMovies});
 
   Future<void> loadData() async {
-    _isLoading.value = true;
-    final movies = await loadMovies.load();
-    _movies.value = movies
-        .map((movie) => RemoteMoviesModel(
-            id: movie.id,
-            overview: movie.overview,
-            voteAverage: movie.voteAverage,
-            posterPath: movie.posterPath,
-            releaseDate: DateFormat('dd MMM yyyy').format(movie.releaseDate),
-            title: movie.title))
-        .toList();
-    _isLoading.value = false;
+    try {
+      _isLoading.value = true;
+
+      final movies = await loadMovies.load();
+      _movies.value = movies
+              .map((movie) => RemoteMoviesModel(
+                  id: movie.id,
+                  overview: movie.overview,
+                  voteAverage: movie.voteAverage,
+                  posterPath: movie.posterPath,
+                  releaseDate: DateFormat('dd MMM yyyy').format(movie.releaseDate),
+                  title: movie.title))
+              .toList();
+    } on DomainError  {
+      _movies.subject.addError(UIError.unexpected.description);
+    } finally {
+      _isLoading.value = false;
+    }
   }
 }
 
@@ -59,6 +68,11 @@ void main() {
             title: faker.randomGenerator.string(244)),
       ];
 
+  PostExpectation mockLoadMoviesCall() => when(loadMovies.load());
+
+  void mockLoadMoviesError() =>
+      mockLoadMoviesCall().thenThrow(DomainError.unexpected);
+
   mockLoadMovies(List<MoviesEntity> data) {
     movies = data;
     when(loadMovies.load()).thenAnswer((_) async => movies);
@@ -80,7 +94,7 @@ void main() {
     await sut.loadData();
   });
 
-  test('Should emit correct events on sucess', () async {
+  test('Should emit correct events on success', () async {
     expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
 
     sut.moviesStream.listen(expectAsync1((movies) => expect(movies, [
@@ -99,6 +113,16 @@ void main() {
               releaseDate: '03 Out 2020',
               title: movies[0].title),
         ])));
+
+    await sut.loadData();
+  });
+  test('Should emit correct events on failure', () async {
+    mockLoadMoviesError();
+    expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
+
+    sut.moviesStream.listen(null,
+        onError: expectAsync1(
+            (error) => expect(error, UIError.unexpected.description)));
 
     await sut.loadData();
   });
