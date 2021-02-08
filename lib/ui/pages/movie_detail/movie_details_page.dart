@@ -1,3 +1,4 @@
+import 'package:cits_movie_app/ui/mixins/loading_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ import '../../../ui/components/components.dart';
 
 import '../../pages/movie_detail/components/components.dart';
 
-class MovieDetailPage extends StatelessWidget {
+class MovieDetailPage extends StatelessWidget with LoadingManager{
   final GetxMovieDetailsPresenter presenter;
 
   MovieDetailPage(this.presenter);
@@ -24,6 +25,8 @@ class MovieDetailPage extends StatelessWidget {
       ),
       body: Builder(
         builder: (context) {
+          handleLoading(context, presenter.isLoadingStream);
+
           presenter.loadData(LoadMovieDetailParams(
               apiKey: '7c130c4d6b5a83e1a0223a8cbf26b27a'));
 
