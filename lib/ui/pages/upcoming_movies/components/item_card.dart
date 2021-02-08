@@ -31,7 +31,7 @@ class ItemCard extends StatelessWidget {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
                     image: DecorationImage(
                       image: NetworkImage(
                         'https://image.tmdb.org/t/p/w185/${moviesModel.posterPath}',
@@ -42,7 +42,7 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+                padding: EdgeInsets.only(top: 8,bottom: 2,left: 4),
                 child: Text(
                   // products is out demo list
                   moviesModel.title,
@@ -53,7 +53,7 @@ class ItemCard extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
                 child: Text(
                   moviesModel.releaseDate,
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: Theme.of(context).textTheme.subtitle2,
                 ),
               ),
             ],

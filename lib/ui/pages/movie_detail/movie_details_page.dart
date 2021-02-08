@@ -2,6 +2,7 @@ import 'package:cits_movie_app/data/models/remote_movie_detail_model.dart';
 import 'package:cits_movie_app/domain/usecases/load_movie_details.dart';
 import 'package:cits_movie_app/presentation/presenters/getx_movie_detail_presenter.dart';
 import 'package:cits_movie_app/ui/pages/movie_detail/components/circular_clipper.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MovieDetailPage extends StatelessWidget {
@@ -72,9 +73,51 @@ class MovieDetailPage extends StatelessWidget {
                             SizedBox(
                               height: 5,
                             ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  movie.releaseDate,
+                                  style: Theme.of(context).textTheme.subtitle2,
+                                ),
+                                VerticalDivider(),
+                                Text(
+                                  '${movie.runtime.toString()} minutos',
+                                  style: Theme.of(context).textTheme.subtitle2,
+                                ),
+                                VerticalDivider(
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  'Nota: ${movie.voteAverage}',
+                                  style: Theme.of(context).textTheme.subtitle2,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Gêneros : ',
+                                  style: Theme.of(context).textTheme.subtitle2,
+                                ),
+                                Text(
+                                  _txtGenres(movie),
+                                  style: Theme.of(context).textTheme.subtitle2,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
                             Text(
-                              movie.releaseDate,
-                              style: Theme.of(context).textTheme.subtitle2,
+                              'Resumo',
+                              style: Theme.of(context).textTheme.headline1,
                               textAlign: TextAlign.center,
                             ),
                             SizedBox(
@@ -96,5 +139,13 @@ class MovieDetailPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  String _txtGenres(RemoteMovieDetailModel movie) {
+    String generos = "";
+    movie.genres.forEach((element) {
+      generos += '${element.name}, ';
+    });
+    return generos.substring(0, generos.length - 2);
   }
 }
