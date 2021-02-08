@@ -1,3 +1,4 @@
+import 'package:cits_movie_app/main/factories/pages/movie_details_page_factory/upcoming_movies_page_factory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,8 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: 'upcoming_movies',
       getPages: [
-        GetPage(name: '/upcoming_movies', page: makeUpcomingMoviesPage)
+        GetPage(name: '/upcoming_movies', page: makeUpcomingMoviesPage),
+        GetPage(name: '/movie_details/:movie_id', page: makeMovieDetailPage)
       ],
     );
   }

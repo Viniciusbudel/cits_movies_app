@@ -1,5 +1,7 @@
+import 'package:cits_movie_app/ui/mixins/navigation_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../domain/usecases/load_movies.dart';
 
@@ -18,13 +20,11 @@ class UpcomingMoviesPage extends StatefulWidget {
   _UpcomingMoviesPageState createState() => _UpcomingMoviesPageState();
 }
 
-class _UpcomingMoviesPageState extends State<UpcomingMoviesPage> {
+class _UpcomingMoviesPageState extends State<UpcomingMoviesPage> with NavigationManager{
   int page = 1;
-
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -33,6 +33,8 @@ class _UpcomingMoviesPageState extends State<UpcomingMoviesPage> {
       body: Builder(builder: (context) {
         widget.presenter.loadData(LoadMoviesParams(
             apiKey: '7c130c4d6b5a83e1a0223a8cbf26b27a', page: page.toString()));
+        handleNavigation(widget.presenter.navigateToStream);
+
         return StreamBuilder<List<RemoteMoviesModel>>(
             stream: widget.presenter.moviesStream,
             builder: (context, snapshot) {
@@ -55,8 +57,9 @@ class _UpcomingMoviesPageState extends State<UpcomingMoviesPage> {
                     mainAxisSpacing: 2,
                     childAspectRatio: 0.5,
                   ),
-                  itemBuilder: (context, index) =>
-                      ItemCard(snapshot.data[index]),
+                  itemBuilder: (context, index) => Provider(
+                      create: (_) => widget.presenter,
+                      child: ItemCard(snapshot.data[index])),
                   itemCount: snapshot.data.length,
                 );
               }
@@ -110,15 +113,15 @@ class _UpcomingMoviesPageState extends State<UpcomingMoviesPage> {
   }
 
   void _onClickBack() {
-    if (page != 1){
-      page --;
+    if (page != 1) {
+      page--;
       widget.presenter.loadData(LoadMoviesParams(
           apiKey: '7c130c4d6b5a83e1a0223a8cbf26b27a', page: page.toString()));
     }
   }
 
   void _onClickForward() {
-    page ++;
+    page++;
     widget.presenter.loadData(LoadMoviesParams(
         apiKey: '7c130c4d6b5a83e1a0223a8cbf26b27a', page: page.toString()));
   }

@@ -1,13 +1,13 @@
-import 'package:cits_movie_app/domain/usecases/usecases.dart';
 import 'package:meta/meta.dart';
 
+import '../../../domain/usecases/usecases.dart';
 import '../../../domain/entities/entities.dart';
 import '../../../domain/helpers/helpers.dart';
 
 import '../../http/http.dart';
 import '../../models/models.dart';
 
-class RemoteLoadMovieDetails implements LoadMovieDetail {
+class RemoteLoadMovieDetails implements LoadMovieDetails {
   final String url;
   final HttpClient httpClient;
 
@@ -17,9 +17,10 @@ class RemoteLoadMovieDetails implements LoadMovieDetail {
   });
 
   @override
-  Future<List<MovieDetailEntity>> load({LoadMovieDetailParams params}) async {
+  Future<List<MovieDetailEntity>> load(
+      {LoadMovieDetailParams params, String id}) async {
     try {
-      String urlFinal = _handleQueryParams(params);
+      String urlFinal = _handleQueryParams(params, id);
 
       final httpResponse =
           await httpClient.request(url: urlFinal, method: 'get');
@@ -35,8 +36,8 @@ class RemoteLoadMovieDetails implements LoadMovieDetail {
     }
   }
 
-  String _handleQueryParams(LoadMovieDetailParams params) {
-    String urlFinal = '$url/${params.id}';
+  String _handleQueryParams(LoadMovieDetailParams params, String id) {
+    String urlFinal = '$url/$id';
     urlFinal = '$url?api_key=${params.apiKey}';
 
     if (params.language != null) {

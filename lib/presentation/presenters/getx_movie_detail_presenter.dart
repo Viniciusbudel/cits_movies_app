@@ -15,13 +15,15 @@ import '../../presentation/presenters/presenters.dart';
 class GetxMovieDetailsPresenter implements MoviesDetailPresenter {
   final LoadMovieDetails loadMovieDetail;
   final _isLoading = true.obs;
+  final String movieId;
+
   final _movies = Rx<List<RemoteMovieDetailModel>>();
 
   Stream<bool> get isLoadingStream => _isLoading.stream;
 
   Stream<List<RemoteMovieDetailModel>> get moviesStream => _movies.stream;
 
-  GetxMovieDetailsPresenter({@required this.loadMovieDetail});
+  GetxMovieDetailsPresenter({@required this.loadMovieDetail,@required this.movieId,});
 
   @override
   // TODO: implement movieDetailStream

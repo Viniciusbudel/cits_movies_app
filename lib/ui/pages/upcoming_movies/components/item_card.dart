@@ -1,6 +1,9 @@
 import 'package:cits_movie_app/data/models/remote_movies_model.dart';
+import 'package:cits_movie_app/presentation/presenters/movies_presenter.dart';
+import 'package:cits_movie_app/presentation/presenters/presenters.dart';
 import 'package:cits_movie_app/ui/pages/movie_detail/movie_details_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../helpers/helpers.dart';
 
@@ -11,6 +14,8 @@ class ItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final presenter = Provider.of<GetxMoviesPresenter>(context);
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
@@ -19,7 +24,7 @@ class ItemCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         child: GestureDetector(
-          onTap: () => push(context, MovieDetailPage()),
+          onTap: () => presenter.goToMovieDetails(moviesModel.id.toString()),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[

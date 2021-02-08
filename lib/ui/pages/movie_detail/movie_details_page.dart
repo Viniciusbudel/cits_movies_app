@@ -1,7 +1,12 @@
+import 'package:cits_movie_app/presentation/presenters/getx_movie_detail_presenter.dart';
 import 'package:cits_movie_app/ui/pages/movie_detail/components/circular_clipper.dart';
 import 'package:flutter/material.dart';
 
 class MovieDetailPage extends StatelessWidget {
+  final GetxMovieDetailsPresenter presenter;
+
+  MovieDetailPage(this.presenter);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
