@@ -36,7 +36,7 @@ class GetxMoviesPresenter extends GetxController with NavigationManager implemen
           overview: movie.overview,
           voteAverage: movie.voteAverage,
           posterPath: movie.posterPath,
-          releaseDate: DateFormat('dd MMM yyyy').format(movie.releaseDate),
+          releaseDate: DateFormat('dd MMM yyyy','pt_Br').format(movie.releaseDate),
           title: movie.title))
           .toList();
     } on DomainError  {

@@ -50,17 +50,20 @@ class _UpcomingMoviesPageState extends State<UpcomingMoviesPage> with Navigation
                 );
               }
               if (snapshot.hasData) {
-                return GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 2,
-                    mainAxisSpacing: 2,
-                    childAspectRatio: 0.5,
+                return Padding(
+                  padding:  EdgeInsets.only(bottom: 40),
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 2,
+                      mainAxisSpacing: 2,
+                      childAspectRatio: 0.5,
+                    ),
+                    itemBuilder: (context, index) => Provider(
+                        create: (_) => widget.presenter,
+                        child: ItemCard(snapshot.data[index])),
+                    itemCount: snapshot.data.length,
                   ),
-                  itemBuilder: (context, index) => Provider(
-                      create: (_) => widget.presenter,
-                      child: ItemCard(snapshot.data[index])),
-                  itemCount: snapshot.data.length,
                 );
               }
               return SizedBox(height: 0);

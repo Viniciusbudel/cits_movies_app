@@ -41,7 +41,7 @@ class GetxMovieDetailsPresenter implements MoviesDetailPresenter {
         overview: movie.overview,
         voteAverage: movie.voteAverage,
         posterPath: movie.posterPath,
-        releaseDate: DateFormat('dd MMM yyyy').format(movie.releaseDate),
+        releaseDate: DateFormat('dd MMM yyyy','pt_Br').format(movie.releaseDate),
         popularity: movie.popularity,
         backdropPath: movie.backdropPath,
         budget: movie.budget,

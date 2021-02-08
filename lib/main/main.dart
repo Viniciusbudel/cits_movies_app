@@ -1,6 +1,7 @@
 import 'package:cits_movie_app/main/factories/pages/movie_details_page_factory/upcoming_movies_page_factory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 
 import '../ui/components/app_theme.dart';
@@ -16,6 +17,11 @@ class App extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
     return GetMaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: [const Locale('pt', 'BR')],
       title: 'cits_movies_app',
       theme: makeAppTheme(),
       debugShowCheckedModeBanner: false,
