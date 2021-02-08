@@ -66,15 +66,17 @@ class MovieDetailPage extends StatelessWidget {
                                       .textTheme
                                       .subtitle2,
                                 ),
-                                Text(
-                                  _txtGenres(movie),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style:
-                                  Theme
-                                      .of(context)
-                                      .textTheme
-                                      .subtitle2,
+                                Flexible(
+                                  child: Text(
+                                    _txtGenres(movie),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style:
+                                    Theme
+                                        .of(context)
+                                        .textTheme
+                                        .subtitle2,
+                                  ),
                                 ),
                               ],
                             ),
