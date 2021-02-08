@@ -1,3 +1,4 @@
+import 'package:cits_movie_app/presentation/presenters/movies_presenter.dart';
 import 'package:meta/meta.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -9,7 +10,7 @@ import '../../data/models/models.dart';
 
 import '../../ui/helpers/errors/ui_error.dart';
 
-class GetxMoviesPresenter {
+class GetxMoviesPresenter implements MoviesPresenter{
   final LoadMovies loadMovies;
   final _isLoading = true.obs;
   final _movies = Rx<List<RemoteMoviesModel>>();

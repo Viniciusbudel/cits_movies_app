@@ -27,8 +27,8 @@ class RemoteMoviesModel extends Equatable {
       'id',
       'overview',
       'vote_average',
-      'posterPath',
-      'releaseDate',
+      'poster_path',
+      'release_date',
       'title'
     ])) {
       throw HttpError.invalidData;
@@ -37,9 +37,9 @@ class RemoteMoviesModel extends Equatable {
     return RemoteMoviesModel(
         id: json['id'],
         overview: json['overview'],
-        voteAverage: json['voteAverage'],
-        posterPath: json['posterPath'],
-        releaseDate: json['releaseDate'],
+        voteAverage: json['voteAverage'] == null ? 0.0 : json['voteAverage'].toDouble(),
+        posterPath: json['poster_path'],
+        releaseDate: json['release_date'],
         title: json['title']);
   }
 

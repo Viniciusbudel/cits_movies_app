@@ -1,3 +1,4 @@
+import 'package:cits_movie_app/data/models/remote_movies_model.dart';
 import 'package:cits_movie_app/ui/pages/movie_detail/movie_details_page.dart';
 import 'package:flutter/material.dart';
 
@@ -5,14 +6,8 @@ import '../../../helpers/helpers.dart';
 
 
 class ItemCard extends StatelessWidget {
-  // final RemoteMoviesModel moviesModel;
-  // final Function press;
-  //
-  // const ItemCard({
-  //   Key key,
-  //   this.moviesModel,
-  //   this.press,
-  // }) : super(key: key);
+  final RemoteMoviesModel moviesModel;
+  ItemCard(this.moviesModel);
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +40,14 @@ class ItemCard extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
                 child: Text(
                   // products is out demo list
-                  'Father',
-                  style: Theme.of(context).textTheme.headline1,
+                  moviesModel.title,
+                  style: Theme.of(context).textTheme.headline2,
                 ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
                 child: Text(
-                  '03/03/2020',
+                  moviesModel.releaseDate,
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ),

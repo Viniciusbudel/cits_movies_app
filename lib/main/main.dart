@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../main/factory/pages/upcoming_movies/upcoming_movies_page_factory.dart';
 import '../ui/components/app_theme.dart';
+import '../main/factories/pages/upcoming_movies/upcoming_movies_page_factory.dart';
 
 void main() {
   runApp(App());

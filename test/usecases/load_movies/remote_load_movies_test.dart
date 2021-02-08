@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cits_movie_app/data/usecases/load_movies/remote_load_movies.dart';
 import 'package:cits_movie_app/domain/helpers/helpers.dart';
+import 'package:cits_movie_app/domain/usecases/load_movies.dart';
 import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
@@ -16,6 +17,7 @@ void main() {
   HttpClientSpy httpClient;
   RemoteLoadMovies sut;
   List<Map> list;
+  LoadMoviesParams params;
 
   List<Map> mockValidData() => [
         {
@@ -48,15 +50,17 @@ void main() {
     mockRequest().thenThrow(error);
   }
 
+
   setUp(() {
     url = faker.internet.httpUrl();
     httpClient = HttpClientSpy();
+    params = LoadMoviesParams(apiKey: faker.guid.guid());
     sut = RemoteLoadMovies(url: url, httpClient: httpClient);
     mockHttpData(mockValidData());
   });
 
   test('Should call HttpClient with correct values', () async {
-    await sut.load();
+    await sut.load(params: params);
 
     verify(httpClient.request(url: url, method: 'get'));
   });
@@ -89,7 +93,7 @@ void main() {
       {'invalid_data': 'invalid_value'}
     ]);
 
-    final future = sut.load();
+    final future = sut.load(params: params);
 
     expect(future, throwsA(DomainError.unexpected));
   });
@@ -97,7 +101,7 @@ void main() {
   test('Should throw UnexpectedError if HttpClient return 404', () async {
     mockHttpError(HttpError.notFound);
 
-    final future = sut.load();
+    final future = sut.load(params: params);
 
     expect(future, throwsA(DomainError.unexpected));
   });
@@ -105,7 +109,7 @@ void main() {
   test('Should throw UnexpectedError if HttpClient return 500', () async {
     mockHttpError(HttpError.serverError);
 
-    final future = sut.load();
+    final future = sut.load(params: params);
 
     expect(future, throwsA(DomainError.unexpected));
   });
@@ -113,7 +117,7 @@ void main() {
   test('Should throw UnexpectedError if HttpClient return 403', () async {
     mockHttpError(HttpError.forbidden);
 
-    final future = sut.load();
+    final future = sut.load(params: params);
 
     expect(future, throwsA(DomainError.accessDenied));
   });
