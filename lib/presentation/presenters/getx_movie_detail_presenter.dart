@@ -17,42 +17,40 @@ class GetxMovieDetailsPresenter implements MoviesDetailPresenter {
   final _isLoading = true.obs;
   final String movieId;
 
-  final _movies = Rx<List<RemoteMovieDetailModel>>();
+  final _movies = Rx<RemoteMovieDetailModel>();
 
   Stream<bool> get isLoadingStream => _isLoading.stream;
 
-  Stream<List<RemoteMovieDetailModel>> get moviesStream => _movies.stream;
-
-  GetxMovieDetailsPresenter({@required this.loadMovieDetail,@required this.movieId,});
+  GetxMovieDetailsPresenter({
+    @required this.loadMovieDetail,
+    @required this.movieId,
+  });
 
   @override
-  // TODO: implement movieDetailStream
-  Stream<List<RemoteMoviesModel>> get movieDetailStream =>
-      throw UnimplementedError();
+  Stream<RemoteMovieDetailModel> get movieDetailStream =>  _movies.stream;
 
   @override
   Future<void> loadData(LoadMovieDetailParams params) async {
     try {
       _isLoading.value = true;
 
-      final movies = await loadMovieDetail.load(params: params);
-      _movies.value = movies
-          .map((movie) => RemoteMovieDetailModel(
-                id: movie.id,
-                overview: movie.overview,
-                voteAverage: movie.voteAverage,
-                posterPath: movie.posterPath,
-                releaseDate:
-                    DateFormat('dd MMM yyyy').format(movie.releaseDate),
-                popularity: movie.popularity,
-                backdropPath: movie.backdropPath,
-                budget: movie.budget,
-                genres: movie.genres,
-                revenue: movie.revenue,
-                title: movie.title,
-                runtime: movie.runtime,
-              ))
-          .toList();
+      final movie = await loadMovieDetail.load(params: params, id: movieId);
+
+      _movies.value = RemoteMovieDetailModel(
+        id: movie.id,
+        overview: movie.overview,
+        voteAverage: movie.voteAverage,
+        posterPath: movie.posterPath,
+        releaseDate: DateFormat('dd MMM yyyy').format(movie.releaseDate),
+        popularity: movie.popularity,
+        backdropPath: movie.backdropPath,
+        budget: movie.budget,
+        genres: movie.genres,
+        revenue: movie.revenue,
+        title: movie.title,
+        runtime: movie.runtime,
+      );
+
     } on DomainError {
       _movies.subject.addError(UIError.unexpected.description);
     } finally {

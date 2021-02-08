@@ -17,18 +17,17 @@ class RemoteLoadMovieDetails implements LoadMovieDetails {
   });
 
   @override
-  Future<List<MovieDetailEntity>> load(
+  Future<MovieDetailEntity> load(
       {LoadMovieDetailParams params, String id}) async {
     try {
       String urlFinal = _handleQueryParams(params, id);
 
-      final httpResponse =
+      final json =
           await httpClient.request(url: urlFinal, method: 'get');
 
-      return httpResponse
-          .map<MoviesEntity>(
-              (json) => RemoteMoviesModel.fromJson(json).toEntity())
-          .toList();
+      return RemoteMovieDetailModel.fromJson(json).toEntity();
+
+
     } on HttpError catch (error) {
       throw error == HttpError.forbidden
           ? DomainError.accessDenied
@@ -37,13 +36,13 @@ class RemoteLoadMovieDetails implements LoadMovieDetails {
   }
 
   String _handleQueryParams(LoadMovieDetailParams params, String id) {
-    String urlFinal = '$url/$id';
-    urlFinal = '$url?api_key=${params.apiKey}';
+    String urlFinal = '$url$id';
+    urlFinal += '?api_key=${params.apiKey}';
 
     if (params.language != null) {
-      urlFinal = '$urlFinal&language=${params.language}';
+      urlFinal += '&language=${params.language}';
     } else {
-      urlFinal = '$urlFinal&language=pt-BR';
+      urlFinal += '&language=pt-BR';
     }
 
     return urlFinal;

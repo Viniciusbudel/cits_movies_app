@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 import '../../domain/entities/entities.dart';
 
 abstract class LoadMovieDetails {
-  Future<List<MovieDetailEntity>> load(
+  Future<MovieDetailEntity> load(
       {@required LoadMovieDetailParams params, @required String id});
 }
 
