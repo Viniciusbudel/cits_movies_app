@@ -21,11 +21,11 @@ class GetxMoviesPresenter implements MoviesPresenter{
 
   GetxMoviesPresenter({@required this.loadMovies});
 
-  Future<void> loadData() async {
+  Future<void> loadData(LoadMoviesParams params) async {
     try {
       _isLoading.value = true;
 
-      final movies = await loadMovies.load();
+      final movies = await loadMovies.load(params: params);
       _movies.value = movies
           .map((movie) => RemoteMoviesModel(
           id: movie.id,

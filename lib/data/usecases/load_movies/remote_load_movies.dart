@@ -19,8 +19,8 @@ class RemoteLoadMovies implements LoadMovies{
   @override
   Future<List<MoviesEntity>> load({LoadMoviesParams params}) async {
     try {
+      String key = params.apiKey;
       final httpResponse = await httpClient.request(url: url, method: 'get');
-      final teste = httpResponse['results'];
       return httpResponse['results']
           .map<MoviesEntity>(
               (json) => RemoteMoviesModel.fromJson(json).toEntity())

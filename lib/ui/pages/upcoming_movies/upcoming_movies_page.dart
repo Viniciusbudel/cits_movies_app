@@ -1,4 +1,5 @@
 import 'package:cits_movie_app/data/models/models.dart';
+import 'package:cits_movie_app/domain/usecases/load_movies.dart';
 import 'package:cits_movie_app/presentation/presenters/movies_presenter.dart';
 import 'package:cits_movie_app/presentation/presenters/presenters.dart';
 import 'package:cits_movie_app/ui/pages/upcoming_movies/components/item_card.dart';
@@ -17,7 +18,8 @@ class UpcomingMoviesPage extends StatelessWidget {
         title: Text('Próximas Estréias'),
       ),
       body: Builder(builder: (context) {
-        presenter.loadData();
+
+        presenter.loadData( LoadMoviesParams(apiKey: '7c130c4d6b5a83e1a0223a8cbf26b27'));
 
         return StreamBuilder<List<RemoteMoviesModel>>(
             stream: presenter.moviesStream,

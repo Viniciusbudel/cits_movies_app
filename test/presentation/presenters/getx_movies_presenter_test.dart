@@ -17,6 +17,7 @@ void main() {
   LoadMoviesSpy loadMovies;
   GetxMoviesPresenter sut;
   List<MoviesEntity> movies;
+  LoadMoviesParams params;
 
   mockValidData() => [
         MoviesEntity(
@@ -35,30 +36,32 @@ void main() {
             title: faker.randomGenerator.string(244)),
       ];
 
-  PostExpectation mockLoadMoviesCall() => when(loadMovies.load());
+  PostExpectation mockLoadMoviesCall() => when(loadMovies.load(params: params));
 
   void mockLoadMoviesError() =>
       mockLoadMoviesCall().thenThrow(DomainError.unexpected);
 
   mockLoadMovies(List<MoviesEntity> data) {
     movies = data;
-    when(loadMovies.load()).thenAnswer((_) async => movies);
+    when(loadMovies.load(params: params)).thenAnswer((_) async => movies);
   }
 
   setUp(() {
     loadMovies = LoadMoviesSpy();
     sut = GetxMoviesPresenter(loadMovies: loadMovies);
     mockLoadMovies(mockValidData());
+    params = LoadMoviesParams(apiKey: faker.guid.guid());
+
   });
 
   test('Should call LoadMovies on loadData', () async {
-    await sut.loadData();
+    await sut.loadData(params);
 
-    verify(loadMovies.load()).called(1);
+    verify(loadMovies.load(params: params)).called(1);
   });
 
   test('Should call LoadMovies on loadData', () async {
-    await sut.loadData();
+    await sut.loadData(params);
   });
 
   test('Should emit correct events on success', () async {
@@ -81,7 +84,7 @@ void main() {
               title: movies[0].title),
         ])));
 
-    await sut.loadData();
+    await sut.loadData(params);
   });
   test('Should emit correct events on failure', () async {
     mockLoadMoviesError();
@@ -91,6 +94,6 @@ void main() {
         onError: expectAsync1(
             (error) => expect(error, UIError.unexpected.description)));
 
-    await sut.loadData();
+    await sut.loadData(params);
   });
 }

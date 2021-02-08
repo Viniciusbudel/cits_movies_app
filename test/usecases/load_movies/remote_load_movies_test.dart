@@ -66,7 +66,7 @@ void main() {
   });
 
   test('Should return Movies on 200', () async {
-    final movies = await sut.load();
+    final movies = await sut.load(params: params);
 
     expect(movies, [
       MoviesEntity(
