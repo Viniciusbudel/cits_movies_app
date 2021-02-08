@@ -1,5 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+
 
 class MovieDetailEntity {
   String backdropPath;
@@ -9,7 +8,7 @@ class MovieDetailEntity {
   String overview;
   double popularity;
   String posterPath;
-  String releaseDate;
+  DateTime releaseDate;
   int revenue;
   int runtime;
   String title;

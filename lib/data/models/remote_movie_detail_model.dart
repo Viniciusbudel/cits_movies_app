@@ -5,55 +5,91 @@ import 'package:cits_movie_app/data/http/http.dart';
 
 import 'package:cits_movie_app/domain/entities/entities.dart';
 
-class RemoteMoviesModel extends Equatable {
-  final int id;
-  final String overview;
-  final double voteAverage;
-  final String posterPath;
-  final String releaseDate;
-  final String title;
+class RemoteMovieDetailModel extends Equatable {
+  String backdropPath;
+  int budget;
+  List<Genres> genres;
+  int id;
+  String overview;
+  double popularity;
+  String posterPath;
+  String releaseDate;
+  int revenue;
+  int runtime;
+  String title;
+  double voteAverage;
 
-  RemoteMoviesModel({
-    @required this.id,
-    @required this.overview,
-    @required this.voteAverage,
-    @required this.posterPath,
-    @required this.releaseDate,
-    @required this.title,
+  RemoteMovieDetailModel({
+    this.backdropPath,
+    this.budget,
+    this.genres,
+    this.id,
+    this.overview,
+    this.popularity,
+    this.posterPath,
+    this.releaseDate,
+    this.revenue,
+    this.runtime,
+    this.title,
+    this.voteAverage,
   });
 
-  factory RemoteMoviesModel.fromJson(Map json) {
+  List get props => [
+        'id',
+        'overview',
+        'voteAverage',
+        'posterPath',
+        'releaseDate',
+        'backdropPath',
+        'budget',
+        'genres',
+        'popularity',
+        'revenue',
+        'runtime',
+      ];
+
+  factory RemoteMovieDetailModel.fromJson(Map json) {
     if (!json.keys.toSet().containsAll([
       'id',
       'overview',
-      'vote_average',
-      'poster_path',
-      'release_date',
-      'title'
+      'voteAverage',
+      'posterPath',
+      'releaseDate',
+      'backdropPath',
+      'budget',
+      'genres',
+      'popularity',
+      'revenue',
+      'runtime',
     ])) {
       throw HttpError.invalidData;
     }
 
-    return RemoteMoviesModel(
+    return RemoteMovieDetailModel(
         id: json['id'],
         overview: json['overview'],
-        voteAverage: json['voteAverage'] == null ? 0.0 : json['voteAverage'].toDouble(),
+        voteAverage:
+            json['voteAverage'] == null ? 0.0 : json['voteAverage'].toDouble(),
         posterPath: json['poster_path'],
+        budget: json['budget'],
         releaseDate: json['release_date'],
+        genres: json['genres'],
+        popularity: json['popularity'],
+        revenue: json['revenue'],
+        runtime: json['runtime'],
         title: json['title']);
   }
 
-  MoviesEntity toEntity() => MoviesEntity(
+  MovieDetailEntity toEntity() => MovieDetailEntity(
         id: id,
         overview: overview,
         voteAverage: voteAverage,
         posterPath: posterPath,
         releaseDate: DateTime.parse(releaseDate),
+        genres: genres,
+        popularity: popularity,
+        revenue: revenue,
+        runtime: runtime,
         title: title,
       );
-
-  @override
-  // TODO: implement props
-  List get props =>
-      ['id', 'overview', 'voteAverage', 'posterPath', 'releaseDate', 'title'];
 }
