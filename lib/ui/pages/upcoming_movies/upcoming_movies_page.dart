@@ -10,6 +10,7 @@ import '../../../data/models/models.dart';
 import '../../../presentation/presenters/presenters.dart';
 
 import '../../../ui/pages/upcoming_movies/components/item_card.dart';
+import '../../../ui/mixins/loading_manager.dart';
 
 class UpcomingMoviesPage extends StatefulWidget {
   final GetxMoviesPresenter presenter;
@@ -20,7 +21,7 @@ class UpcomingMoviesPage extends StatefulWidget {
   _UpcomingMoviesPageState createState() => _UpcomingMoviesPageState();
 }
 
-class _UpcomingMoviesPageState extends State<UpcomingMoviesPage> with NavigationManager{
+class _UpcomingMoviesPageState extends State<UpcomingMoviesPage> with NavigationManager,LoadingManager{
   int page = 1;
 
   @override
@@ -31,6 +32,9 @@ class _UpcomingMoviesPageState extends State<UpcomingMoviesPage> with Navigation
         title: Text('Próximas Estréias'),
       ),
       body: Builder(builder: (context) {
+
+        handleLoading(context, widget.presenter.isLoadingStream);
+
         widget.presenter.loadData(LoadMoviesParams(
             apiKey: '7c130c4d6b5a83e1a0223a8cbf26b27a', page: page.toString()));
         handleNavigation(widget.presenter.navigateToStream);
