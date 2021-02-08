@@ -29,7 +29,7 @@ class ItemCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                     image: DecorationImage(
                       image: NetworkImage(
-                        'https://image.tmdb.org/t/p/w185/okhrkHYF94K4kLXLwZkQMhWZ0fL.jpg',
+                        'https://image.tmdb.org/t/p/w185/${moviesModel.posterPath}',
                       ),
                       fit: BoxFit.cover,
                     ),

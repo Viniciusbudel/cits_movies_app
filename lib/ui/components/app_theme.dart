@@ -7,7 +7,7 @@ ThemeData makeAppTheme(){
   final colorAccent = Color.fromRGBO(90, 94, 96, 1);
   final textTheme = TextTheme(
       headline1: TextStyle(
-          fontSize: 30,
+          fontSize: 17,
           fontWeight: FontWeight.w500,
           color: colorAccent),
       headline2: TextStyle(
