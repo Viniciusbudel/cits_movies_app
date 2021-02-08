@@ -1,11 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 import 'package:cits_movie_app/data/http/http.dart';
 
 import 'package:cits_movie_app/domain/entities/entities.dart';
 
-
-class RemoteMoviesModel {
+class RemoteMoviesModel extends Equatable {
   final int id;
   final String overview;
   final double voteAverage;
@@ -51,4 +51,9 @@ class RemoteMoviesModel {
         releaseDate: DateTime.parse(releaseDate),
         title: title,
       );
+
+  @override
+  // TODO: implement props
+  List get props =>
+      ['id', 'overview', 'voteAverage', 'posterPath', 'releaseDate', 'title'];
 }
