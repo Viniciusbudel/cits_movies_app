@@ -61,10 +61,6 @@ void main() {
     verify(loadMovies.load(params: params)).called(1);
   });
 
-  test('Should call LoadMovies on loadData', () async {
-    await sut.loadData(params);
-  });
-
   test('Should emit correct events on success', () async {
     expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
 
@@ -87,6 +83,7 @@ void main() {
 
     await sut.loadData(params);
   });
+
   test('Should emit correct events on failure', () async {
     mockLoadMoviesError();
     expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
