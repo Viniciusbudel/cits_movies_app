@@ -22,6 +22,8 @@ class GetxMoviesPresenter implements MoviesPresenter{
   GetxMoviesPresenter({@required this.loadMovies});
 
   Future<void> loadData(LoadMoviesParams params) async {
+
+
     try {
       _isLoading.value = true;
 

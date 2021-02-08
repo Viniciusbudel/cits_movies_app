@@ -47,10 +47,11 @@ void main() {
   }
 
   setUp(() {
+    params = LoadMoviesParams(apiKey: '7c130c4d6b5a83e1a0223a8cbf26b27a');
+
     loadMovies = LoadMoviesSpy();
     sut = GetxMoviesPresenter(loadMovies: loadMovies);
     mockLoadMovies(mockValidData());
-    params = LoadMoviesParams(apiKey: faker.guid.guid());
 
   });
 

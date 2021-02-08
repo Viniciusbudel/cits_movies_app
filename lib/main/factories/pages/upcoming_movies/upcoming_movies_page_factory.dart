@@ -7,7 +7,7 @@ import '../../../../data/usecases/load_movies/load_movies.dart';
 import '../../../../infra/http/http.dart';
 
 Widget makeUpcomingMoviesPage() {
-  final url = 'https://api.themoviedb.org/3/movie/upcoming?api_key=7c130c4d6b5a83e1a0223a8cbf26b27a&language=pt-BR&page=1';
+  final url = 'https://api.themoviedb.org/3/movie/upcoming';
   final client = Client();
   final httpAdapter = HttpAdapter(client);
   final remoteLoadMovies =
